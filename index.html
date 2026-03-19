@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>THE FUTURE - خدمات رقمية احترافية</title>
+  <script src="/_sdk/element_sdk.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
   <style>
     :root {
       --gold: #C9A84C;
@@ -16,18 +18,15 @@
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
-
-    html, body { width: 100%; height: 100%; }
-    html { scroll-behavior: smooth; }
+    html, body { height: 100%; width: 100%; }
     body { 
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: 'Noto Sans Arabic', 'Segoe UI', sans-serif;
       background: var(--dark-bg);
       color: var(--text-light);
       line-height: 1.6;
+      scroll-behavior: smooth;
     }
 
-    .container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
-    
     /* Navigation */
     nav {
       position: fixed;
@@ -35,7 +34,7 @@
       width: 100%;
       z-index: 50;
       backdrop-filter: blur(20px);
-      background: rgba(10, 10, 10, 0.85);
+      background: rgba(10, 10, 10, 0.95);
       border-bottom: 1px solid rgba(201, 168, 76, 0.1);
       padding: 1rem 1.5rem;
     }
@@ -52,13 +51,18 @@
       display: flex;
       align-items: center;
       gap: 0.75rem;
-      font-size: 1.25rem;
+      font-size: 1.1rem;
       font-weight: bold;
       text-decoration: none;
       color: var(--text-light);
     }
 
-    .logo-gradient { background: linear-gradient(135deg, var(--gold), var(--gold-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .logo-gradient { 
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
 
     .nav-links {
       display: none;
@@ -74,11 +78,18 @@
 
     .nav-links a:hover { color: var(--gold); }
 
-    .btn-menu { display: none; background: none; border: none; color: var(--text-gray); cursor: pointer; font-size: 1.5rem; }
+    .btn-menu { 
+      display: flex;
+      background: none;
+      border: none;
+      color: var(--text-gray);
+      cursor: pointer;
+      font-size: 1.5rem;
+    }
 
     @media (min-width: 768px) {
       .nav-links { display: flex; }
-      .btn-menu { display: none !important; }
+      .btn-menu { display: none; }
     }
 
     /* Mobile Menu */
@@ -92,6 +103,7 @@
       display: flex;
       flex-direction: column;
       padding: 2rem 1.5rem;
+      padding-top: 5rem;
     }
 
     .mobile-menu.open { transform: translateX(0); }
@@ -100,7 +112,11 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 3rem;
+      margin-bottom: 2rem;
+      position: absolute;
+      top: 1rem;
+      right: 1.5rem;
+      left: 1.5rem;
     }
 
     .mobile-menu-links {
@@ -111,7 +127,7 @@
 
     .mobile-menu-links a {
       text-decoration: none;
-      font-size: 1.5rem;
+      font-size: 1.25rem;
       font-weight: 500;
       color: var(--text-light);
       transition: color 0.3s;
@@ -157,7 +173,11 @@
 
     /* Sections */
     section {
-      padding: 6rem 1.5rem;
+      padding: 4rem 1.5rem;
+    }
+
+    @media (min-width: 640px) {
+      section { padding: 6rem 1.5rem; }
     }
 
     /* Hero */
@@ -168,7 +188,7 @@
       background: radial-gradient(ellipse at 50% 0%, rgba(201, 168, 76, 0.08) 0%, transparent 60%), linear-gradient(180deg, var(--dark-bg) 0%, #050505 100%);
       position: relative;
       overflow: hidden;
-      margin-top: 5rem;
+      margin-top: 4rem;
     }
 
     .orb {
@@ -176,13 +196,35 @@
       border-radius: 50%;
       filter: blur(80px);
       pointer-events: none;
+    }
+
+    .orb-1 { 
+      width: 15rem;
+      height: 15rem;
+      background: rgba(201, 168, 76, 0.05);
+      top: 0;
+      left: 10%;
       animation: float 6s ease-in-out infinite;
     }
 
-    .orb-1 { width: 24rem; height: 24rem; background: rgba(201, 168, 76, 0.05); top: 0; left: 25%; }
-    .orb-2 { width: 16rem; height: 16rem; background: rgba(201, 168, 76, 0.03); bottom: 5rem; right: 2.5rem; animation-delay: 2s; }
+    .orb-2 { 
+      width: 10rem;
+      height: 10rem;
+      background: rgba(201, 168, 76, 0.03);
+      bottom: 2rem;
+      right: 5%;
+      animation: float 8s ease-in-out infinite 2s;
+    }
 
-    @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+    @media (min-width: 640px) {
+      .orb-1 { width: 24rem; height: 24rem; left: 25%; }
+      .orb-2 { width: 16rem; height: 16rem; right: 2.5rem; bottom: 5rem; }
+    }
+
+    @keyframes float { 
+      0%, 100% { transform: translateY(0); } 
+      50% { transform: translateY(-10px); } 
+    }
 
     .hero-content {
       position: relative;
@@ -198,32 +240,54 @@
       border-radius: 9999px;
       border: 1px solid rgba(201, 168, 76, 0.2);
       background: rgba(201, 168, 76, 0.05);
-      margin-bottom: 2rem;
+      margin-bottom: 1.5rem;
       font-size: 0.875rem;
       color: var(--gold);
     }
 
-    .dot { width: 0.5rem; height: 0.5rem; border-radius: 50%; background: var(--gold); animation: pulse 2s infinite; }
+    .dot { 
+      width: 0.5rem;
+      height: 0.5rem;
+      border-radius: 50%;
+      background: var(--gold);
+      animation: pulse 2s infinite;
+    }
 
-    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+    @keyframes pulse { 
+      0%, 100% { opacity: 1; } 
+      50% { opacity: 0.5; } 
+    }
 
     .hero-title {
-      font-size: clamp(2rem, 8vw, 3.5rem);
+      font-size: clamp(2rem, 7vw, 3.5rem);
       font-weight: bold;
       line-height: 1.2;
       margin-bottom: 1.5rem;
     }
 
-    .text-gradient { background: linear-gradient(135deg, var(--gold), var(--gold-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .text-gradient { 
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
 
     .hero-desc {
-      font-size: 1.125rem;
+      font-size: 1rem;
       color: var(--text-gray);
-      margin-bottom: 2.5rem;
+      margin-bottom: 2rem;
       line-height: 1.8;
     }
 
-    .btn-group { display: flex; gap: 1rem; flex-wrap: wrap; }
+    @media (min-width: 640px) {
+      .hero-desc { font-size: 1.125rem; }
+    }
+
+    .btn-group { 
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
 
     /* Cards */
     .card {
@@ -248,19 +312,30 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1rem;
       transition: all 0.3s;
     }
 
-    .card:hover .card-icon { background: linear-gradient(135deg, rgba(201, 168, 76, 0.3), rgba(201, 168, 76, 0.1)); }
+    .card:hover .card-icon { 
+      background: linear-gradient(135deg, rgba(201, 168, 76, 0.3), rgba(201, 168, 76, 0.1));
+    }
 
-    .card-title { font-size: 1.125rem; font-weight: 600; margin-bottom: 0.75rem; }
-    .card-desc { font-size: 0.95rem; color: var(--text-gray); line-height: 1.6; }
+    .card-title { 
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .card-desc { 
+      font-size: 0.9rem;
+      color: var(--text-gray);
+      line-height: 1.6;
+    }
 
     /* Section Header */
     .section-header {
       text-align: center;
-      margin-bottom: 4rem;
+      margin-bottom: 3rem;
     }
 
     .section-badge {
@@ -271,7 +346,7 @@
       border-radius: 9999px;
       border: 1px solid rgba(201, 168, 76, 0.2);
       background: rgba(201, 168, 76, 0.05);
-      margin-bottom: 1.5rem;
+      margin-bottom: 1rem;
       font-size: 0.8rem;
       color: var(--gold);
     }
@@ -283,29 +358,41 @@
       line-height: 1.2;
     }
 
-    .section-desc { font-size: 1.05rem; color: var(--text-gray); max-width: 36rem; margin: 0 auto; }
+    .section-desc { 
+      font-size: 1rem;
+      color: var(--text-gray);
+      max-width: 36rem;
+      margin: 0 auto;
+    }
 
     /* Grid */
     .grid { display: grid; gap: 1.25rem; }
-    .grid-2 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
-    .grid-4 { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
-    .grid-5 { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+    
+    .grid-2 { grid-template-columns: 1fr; }
+    .grid-4 { grid-template-columns: 1fr; }
+    .grid-5 { grid-template-columns: 1fr; }
 
     @media (min-width: 640px) {
+      .grid-2 { grid-template-columns: repeat(2, 1fr); }
+      .grid-4 { grid-template-columns: repeat(2, 1fr); }
+      .grid-5 { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (min-width: 1024px) {
       .grid-2 { grid-template-columns: repeat(2, 1fr); }
       .grid-4 { grid-template-columns: repeat(4, 1fr); }
       .grid-5 { grid-template-columns: repeat(5, 1fr); }
     }
 
-    @media (max-width: 768px) {
-      .grid-2 { grid-template-columns: 1fr; }
-      .grid-4 { grid-template-columns: repeat(2, 1fr); }
-      .grid-5 { grid-template-columns: repeat(2, 1fr); }
-    }
-
     /* Forms */
     .form-group { margin-bottom: 1.25rem; }
-    label { display: block; font-size: 0.95rem; color: var(--text-light); margin-bottom: 0.5rem; font-weight: 500; }
+    label { 
+      display: block;
+      font-size: 0.95rem;
+      color: var(--text-light);
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
 
     input, select, textarea {
       width: 100%;
@@ -328,20 +415,39 @@
     textarea { resize: none; }
 
     /* Utility */
-    .reveal { opacity: 0; transform: translateY(20px); transition: all 0.6s ease; }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal { 
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.6s ease;
+    }
 
-    @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    .reveal.visible { 
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .fade-in { 
+      animation: fadeInUp 0.8s ease-out forwards;
+      opacity: 0;
+    }
 
     .delay-1 { animation-delay: 0.1s; }
     .delay-2 { animation-delay: 0.2s; }
     .delay-3 { animation-delay: 0.3s; }
     .delay-4 { animation-delay: 0.4s; }
 
-    .fade-in { animation: fadeInUp 0.8s ease-out forwards; opacity: 0; }
+    @keyframes fadeInUp { 
+      from { opacity: 0; transform: translateY(30px); } 
+      to { opacity: 1; transform: translateY(0); } 
+    }
 
     /* Social Icons */
-    .social-icons { display: flex; gap: 1rem; justify-content: center; }
+    .social-icons { 
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
 
     .icon-btn {
       width: 3rem;
@@ -357,9 +463,18 @@
       text-decoration: none;
     }
 
-    .icon-btn:hover { border-color: rgba(201, 168, 76, 0.3); background: rgba(201, 168, 76, 0.05); }
+    .icon-btn:hover { 
+      border-color: rgba(201, 168, 76, 0.3);
+      background: rgba(201, 168, 76, 0.05);
+    }
 
-    .icon-btn svg { width: 1.25rem; height: 1.25rem; stroke: var(--text-gray); transition: stroke 0.3s; }
+    .icon-btn svg { 
+      width: 1.25rem;
+      height: 1.25rem;
+      stroke: var(--text-gray);
+      transition: stroke 0.3s;
+    }
+
     .icon-btn:hover svg { stroke: var(--gold); }
 
     /* Footer */
@@ -373,19 +488,33 @@
       gap: 1rem;
     }
 
-    .footer-brand { display: flex; align-items: center; gap: 0.75rem; font-size: 0.95rem; font-weight: 600; }
-    .footer-text { font-size: 0.85rem; color: var(--text-gray); }
+    .footer-brand { 
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .footer-text { 
+      font-size: 0.85rem;
+      color: var(--text-gray);
+    }
 
     /* Scrollbar */
     ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
     ::-webkit-scrollbar-thumb:hover { background: var(--gold); }
+
+    .container { 
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
   </style>
   <style>body { box-sizing: border-box; }</style>
   <script src="https://cdn.tailwindcss.com/3.4.17" type="text/javascript"></script>
-  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js" type="text/javascript"></script>
   <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
-  <script src="/_sdk/element_sdk.js" type="text/javascript"></script>
  </head>
  <body><!-- Navigation -->
   <nav>
@@ -425,7 +554,7 @@
   </section><!-- About Section -->
   <section id="about">
    <div class="container">
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;">
+    <div style="display: grid; grid-template-columns: 1fr; gap: 3rem; align-items: center;">
      <div class="reveal" style="order: 2;">
       <div class="section-badge">
        تعرّف علينا
@@ -434,43 +563,36 @@
       <p class="section-desc" style="text-align: right; margin-left: 0;">في THE FUTURE نؤمن أن التصميم ليس شكلًا فقط، بل تجربة وهوية ورسالة. نساعد الشركات والأفراد على بناء حضور رقمي قوي يعكس قيمهم ويقودهم للمستقبل.</p>
       <div class="grid grid-2" style="margin-top: 2rem;">
        <div class="card">
-        <svg width="20" height="20" viewbox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" style="margin-bottom: 0.5rem;"><circle cx="12" cy="12" r="10" /> <polyline points="12 6 12 12 16 14"></polyline>
+        <svg width="20" height="20" viewbox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" style="margin-bottom: 0.5rem;">
+         <circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14"></polyline>
         </svg>
         <div style="font-size: 0.9rem; color: var(--text-light);">
          رؤية واضحة
         </div>
        </div>
        <div class="card">
-        <svg width="20" height="20" viewbox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" style="margin-bottom: 0.5rem;"><path d="M21.21 15.89A10 10 0 1 1 8 2.83" /> <line x1="22" y1="4" x2="12" y2="14.01" />
+        <svg width="20" height="20" viewbox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" style="margin-bottom: 0.5rem;">
+         <path d="M21.21 15.89A10 10 0 1 1 8 2.83" /><line x1="22" y1="4" x2="12" y2="14.01" />
         </svg>
         <div style="font-size: 0.9rem; color: var(--text-light);">
          إبداع متجدد
         </div>
        </div>
        <div class="card">
-        <svg width="20" height="20" viewbox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" style="margin-bottom: 0.5rem;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+        <svg width="20" height="20" viewbox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" style="margin-bottom: 0.5rem;">
+         <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
         </svg>
         <div style="font-size: 0.9rem; color: var(--text-light);">
          جودة عالية
         </div>
        </div>
        <div class="card">
-        <svg width="20" height="20" viewbox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" style="margin-bottom: 0.5rem;"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+        <svg width="20" height="20" viewbox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" style="margin-bottom: 0.5rem;">
+         <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
         </svg>
         <div style="font-size: 0.9rem; color: var(--text-light);">
          شراكة حقيقية
         </div>
-       </div>
-      </div>
-     </div>
-     <div class="reveal" style="order: 1;">
-      <div style="background: linear-gradient(135deg, rgba(201,168,76,0.1), transparent); border-radius: 2rem; padding: 2rem; border: 1px solid var(--dark-border); text-align: center;">
-       <div style="background: var(--dark-card); border-radius: 1.5rem; padding: 2rem; border: 1px solid var(--dark-border);">
-        <div style="width: 80px; height: 80px; margin: 0 auto 1rem; background: linear-gradient(135deg, rgba(201,168,76,0.2), rgba(201,168,76,0.05)); border-radius: 1rem; display: flex; align-items: center; justify-content: center;">
-         <svg width="40" height="40" viewbox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
-         </svg>
-        </div>
-        <p style="color: var(--text-gray); font-size: 0.9rem;">الإبداع · الجودة · المستقبل</p>
        </div>
       </div>
      </div>
@@ -732,345 +854,37 @@
       window.open(`https://wa.me/962788749174?text=${msg}`, '_blank');
       document.getElementById('order-form').reset();
     });
-  </script>
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-   <div class="flex items-center justify-between h-16 sm:h-20"><a href="#hero" class="flex items-center gap-3 group">
-     <svg class="w-8 h-8 sm:w-10 sm:h-10" viewbox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-       <lineargradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" style="stop-color:#C9A84C;stop-opacity:1" />
-        <stop offset="100%" style="stop-color:#E2C878;stop-opacity:1" />
-       </lineargradient>
-      </defs> <circle cx="30" cy="30" r="28" fill="url(#logoGradient)" opacity="0.95" /> <circle cx="30" cy="30" r="26" fill="#0A0A0A" /> <path d="M 15 12 L 45 12 L 45 16 L 37 16 L 37 40 L 32 40 L 32 16 L 15 16 Z" fill="url(#logoGradient)" /> <path d="M 17 20 L 17 45 L 22 45 L 22 33 L 40 33 L 40 29 L 22 29 L 22 24 L 40 24 L 40 20 Z" fill="url(#logoGradient)" /> <line x1="15" y1="48" x2="45" y2="48" stroke="url(#logoGradient)" stroke-width="1.5" opacity="0.6" />
-     </svg><span class="font-heading font-bold text-lg sm:text-xl tracking-wide">THE <span class="text-gold-gradient">FUTURE</span></span> </a>
-    <div class="hidden md:flex items-center gap-8"><a href="#hero" class="text-sm text-gray-300 hover:text-gold transition-colors">الرئيسية</a> <a href="#about" class="text-sm text-gray-300 hover:text-gold transition-colors">من نحن</a> <a href="#services" class="text-sm text-gray-300 hover:text-gold transition-colors">خدماتنا</a> <a href="#why-us" class="text-sm text-gray-300 hover:text-gold transition-colors">لماذا نحن</a> <a href="#portfolio" class="text-sm text-gray-300 hover:text-gold transition-colors">أعمالنا</a> <a href="#contact" class="btn-gold px-5 py-2 rounded-lg text-sm">تواصل معنا</a>
-    </div><button id="menu-btn" class="md:hidden text-gray-300 hover:text-gold transition-colors" aria-label="القائمة"> <i data-lucide="menu" style="width:24px;height:24px"></i> </button>
-   </div>
-  </div>
-  <div id="mobile-menu" class="mobile-menu fixed inset-0 z-50 bg-darkBg/98 md:hidden">
-   <div class="flex flex-col h-full p-6">
-    <div class="flex justify-between items-center mb-12"><span class="font-heading font-bold text-xl">THE <span class="text-gold-gradient">FUTURE</span></span> <button id="close-menu" class="text-gray-300 hover:text-gold" aria-label="إغلاق"> <i data-lucide="x" style="width:24px;height:24px"></i> </button>
-    </div>
-    <div class="flex flex-col gap-6"><a href="#hero" class="mobile-link text-2xl font-medium text-gray-200 hover:text-gold transition-colors">الرئيسية</a> <a href="#about" class="mobile-link text-2xl font-medium text-gray-200 hover:text-gold transition-colors">من نحن</a> <a href="#services" class="mobile-link text-2xl font-medium text-gray-200 hover:text-gold transition-colors">خدماتنا</a> <a href="#why-us" class="mobile-link text-2xl font-medium text-gray-200 hover:text-gold transition-colors">لماذا نحن</a> <a href="#portfolio" class="mobile-link text-2xl font-medium text-gray-200 hover:text-gold transition-colors">أعمالنا</a> <a href="#contact" class="mobile-link text-2xl font-medium text-gold">تواصل معنا</a>
-    </div>
-   </div>
-  </div>
-  <section id="hero" class="hero-bg grid-pattern relative min-h-full flex items-center overflow-hidden">
-   <div class="orb w-96 h-96 bg-gold/5 top-0 left-1/4 animate-float"></div>
-   <div class="orb w-64 h-64 bg-gold/3 bottom-20 right-10" style="animation: float 8s ease-in-out infinite 2s;"></div>
-   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 sm:py-40 relative z-10 w-full">
-    <div class="max-w-3xl">
-     <div class="animate-fade-in-up delay-1 inline-flex items-center gap-2 px-4 py-2 rounded-full border border-gold/20 bg-gold/5 mb-8">
-      <div class="w-2 h-2 rounded-full bg-gold" style="animation: pulse-gold 2s infinite;"></div><span class="text-gold text-sm font-medium">وكالة رقمية متخصصة</span>
-     </div>
-     <h1 id="hero-title" class="animate-fade-in-up delay-2 font-heading text-4xl sm:text-5xl md:text-7xl font-bold leading-tight mb-6">نبني <span class="text-gold-gradient">مستقبلك</span> الرقمي</h1>
-     <p id="hero-desc" class="animate-fade-in-up delay-3 text-gray-400 text-base sm:text-lg md:text-xl leading-relaxed mb-10 max-w-2xl">نحن شركة خدمات رقمية متخصصة في الإعلانات، تصميم الشعارات، تطوير المواقع، وبناء الهوية البصرية بأسلوب احترافي يعكس قوة علامتك.</p>
-     <div class="animate-fade-in-up delay-4 flex flex-wrap gap-4"><a href="#contact" class="btn-gold px-8 py-3.5 rounded-xl text-base font-semibold inline-flex items-center gap-2"> ابدأ مشروعك <i data-lucide="arrow-left" style="width:18px;height:18px"></i> </a> <a href="#portfolio" class="btn-outline px-8 py-3.5 rounded-xl text-base font-medium inline-flex items-center gap-2"> أعمالنا <i data-lucide="chevron-left" style="width:18px;height:18px"></i> </a>
-     </div>
-    </div>
-   </div>
-   <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-fade-in delay-7">
-    <div class="flex flex-col items-center gap-2 text-gray-600"><span class="text-xs">اكتشف المزيد</span> <i data-lucide="chevron-down" style="width:16px;height:16px; animation: float 2s ease-in-out infinite;"></i>
-    </div>
-   </div>
-  </section>
-  <section id="about" class="relative py-24 sm:py-32">
-   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="reveal grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
-     <div class="relative order-2 md:order-1">
-      <div class="aspect-square max-w-md mx-auto relative">
-       <div class="absolute inset-0 rounded-3xl bg-gradient-to-br from-gold/10 to-transparent border border-gold/10"></div>
-       <div class="absolute inset-4 rounded-2xl bg-darkCard border border-darkBorder flex items-center justify-center">
-        <div class="text-center p-8">
-         <div class="w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-gold/20 to-gold/5 flex items-center justify-center">
-          <svg class="w-12 h-12" viewbox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
-           <defs>
-            <lineargradient id="logoGradient3" x1="0%" y1="0%" x2="100%" y2="100%">
-             <stop offset="0%" style="stop-color:#C9A84C;stop-opacity:1" />
-             <stop offset="100%" style="stop-color:#E2C878;stop-opacity:1" />
-            </lineargradient>
-           </defs> <circle cx="30" cy="30" r="28" fill="url(#logoGradient3)" opacity="0.95" /> <circle cx="30" cy="30" r="26" fill="#0A0A0A" /> <path d="M 15 12 L 45 12 L 45 16 L 37 16 L 37 40 L 32 40 L 32 16 L 15 16 Z" fill="url(#logoGradient3)" /> <path d="M 17 20 L 17 45 L 22 45 L 22 33 L 40 33 L 40 29 L 22 29 L 22 24 L 40 24 L 40 20 Z" fill="url(#logoGradient3)" /> <line x1="15" y1="48" x2="45" y2="48" stroke="url(#logoGradient3)" stroke-width="1.5" opacity="0.6" />
-          </svg>
-         </div>
-         <div class="gold-divider w-16 mx-auto mb-6"></div>
-         <p class="text-gray-500 text-sm leading-relaxed">الإبداع · الجودة · المستقبل</p>
-        </div>
-       </div>
-       <div class="absolute -top-3 -right-3 w-24 h-24 rounded-xl border border-gold/20 bg-gold/5 animate-float flex items-center justify-center"><i data-lucide="palette" style="width:28px;height:28px;color:#C9A84C"></i>
-       </div>
-       <div class="absolute -bottom-3 -left-3 w-20 h-20 rounded-xl border border-gold/20 bg-gold/5 flex items-center justify-center" style="animation: float 5s ease-in-out infinite 1s;"><i data-lucide="code-2" style="width:24px;height:24px;color:#C9A84C"></i>
-       </div>
-      </div>
-     </div>
-     <div class="order-1 md:order-2">
-      <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-gold/20 bg-gold/5 mb-6"><span class="text-gold text-xs font-medium">تعرّف علينا</span>
-      </div>
-      <h2 class="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold mb-6">من <span class="text-gold-gradient">نحن</span></h2>
-      <p id="about-text" class="text-gray-400 text-base sm:text-lg leading-relaxed mb-8">في THE FUTURE نؤمن أن التصميم ليس شكلًا فقط، بل تجربة وهوية ورسالة. نساعد الشركات والأفراد على بناء حضور رقمي قوي يعكس قيمهم ويقودهم للمستقبل.</p>
-      <div class="grid grid-cols-2 gap-4">
-       <div class="flex items-center gap-3 p-3 rounded-xl bg-darkCard border border-darkBorder">
-        <div class="w-10 h-10 rounded-lg bg-gold/10 flex items-center justify-center flex-shrink-0"><i data-lucide="target" style="width:18px;height:18px;color:#C9A84C"></i>
-        </div><span class="text-sm text-gray-300">رؤية واضحة</span>
-       </div>
-       <div class="flex items-center gap-3 p-3 rounded-xl bg-darkCard border border-darkBorder">
-        <div class="w-10 h-10 rounded-lg bg-gold/10 flex items-center justify-center flex-shrink-0"><i data-lucide="sparkles" style="width:18px;height:18px;color:#C9A84C"></i>
-        </div><span class="text-sm text-gray-300">إبداع متجدد</span>
-       </div>
-       <div class="flex items-center gap-3 p-3 rounded-xl bg-darkCard border border-darkBorder">
-        <div class="w-10 h-10 rounded-lg bg-gold/10 flex items-center justify-center flex-shrink-0"><i data-lucide="shield-check" style="width:18px;height:18px;color:#C9A84C"></i>
-        </div><span class="text-sm text-gray-300">جودة عالية</span>
-       </div>
-       <div class="flex items-center gap-3 p-3 rounded-xl bg-darkCard border border-darkBorder">
-        <div class="w-10 h-10 rounded-lg bg-gold/10 flex items-center justify-center flex-shrink-0"><i data-lucide="heart-handshake" style="width:18px;height:18px;color:#C9A84C"></i>
-        </div><span class="text-sm text-gray-300">شراكة حقيقية</span>
-       </div>
-      </div>
-     </div>
-    </div>
-   </div>
-  </section>
-  <section id="services" class="relative py-24 sm:py-32 bg-gradient-to-b from-transparent via-gold/[0.02] to-transparent">
-   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="reveal text-center mb-16">
-     <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-gold/20 bg-gold/5 mb-6"><span class="text-gold text-xs font-medium">ما نقدّمه</span>
-     </div>
-     <h2 class="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold mb-4"><span class="text-gold-gradient">خدماتنا</span> المتخصصة</h2>
-     <p class="text-gray-500 max-w-xl mx-auto">حلول رقمية متكاملة تلبي جميع احتياجاتك الإبداعية</p>
-    </div>
-    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-     <div class="reveal service-card rounded-2xl bg-darkCard p-6 sm:p-8 group cursor-default">
-      <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-gold/20 to-gold/5 flex items-center justify-center mb-6 group-hover:from-gold/30 group-hover:to-gold/10 transition-all"><i data-lucide="megaphone" style="width:26px;height:26px;color:#C9A84C"></i>
-      </div>
-      <h3 class="font-heading text-lg font-semibold mb-3">تصميم الإعلانات</h3>
-      <p class="text-gray-500 text-sm leading-relaxed">نصنع إعلانات رقمية جذابة تحقق نتائج وتبني الثقة مع جمهورك المستهدف.</p>
-      <div class="gold-divider w-8 mt-6 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-     </div>
-     <div class="reveal service-card rounded-2xl bg-darkCard p-6 sm:p-8 group cursor-default">
-      <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-gold/20 to-gold/5 flex items-center justify-center mb-6 group-hover:from-gold/30 group-hover:to-gold/10 transition-all"><i data-lucide="pen-tool" style="width:26px;height:26px;color:#C9A84C"></i>
-      </div>
-      <h3 class="font-heading text-lg font-semibold mb-3">تصميم الشعارات</h3>
-      <p class="text-gray-500 text-sm leading-relaxed">شعارات عصرية، بسيطة، وقابلة للاستخدام في جميع المنصات الرقمية.</p>
-      <div class="gold-divider w-8 mt-6 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-     </div>
-     <div class="reveal service-card rounded-2xl bg-darkCard p-6 sm:p-8 group cursor-default">
-      <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-gold/20 to-gold/5 flex items-center justify-center mb-6 group-hover:from-gold/30 group-hover:to-gold/10 transition-all"><i data-lucide="monitor" style="width:26px;height:26px;color:#C9A84C"></i>
-      </div>
-      <h3 class="font-heading text-lg font-semibold mb-3">تصميم المواقع</h3>
-      <p class="text-gray-500 text-sm leading-relaxed">مواقع حديثة، سريعة، ومتجاوبة تعكس هوية علامتك التجارية بقوة.</p>
-      <div class="gold-divider w-8 mt-6 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-     </div>
-     <div class="reveal service-card rounded-2xl bg-darkCard p-6 sm:p-8 group cursor-default">
-      <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-gold/20 to-gold/5 flex items-center justify-center mb-6 group-hover:from-gold/30 group-hover:to-gold/10 transition-all"><i data-lucide="layers" style="width:26px;height:26px;color:#C9A84C"></i>
-      </div>
-      <h3 class="font-heading text-lg font-semibold mb-3">الهوية البصرية</h3>
-      <p class="text-gray-500 text-sm leading-relaxed">نظام متكامل للألوان، الخطوط، والعناصر البصرية التي تميّز علامتك.</p>
-      <div class="gold-divider w-8 mt-6 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-     </div>
-    </div>
-   </div>
-  </section>
-  <section id="why-us" class="relative py-24 sm:py-32">
-   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="reveal text-center mb-16">
-     <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-gold/20 bg-gold/5 mb-6"><span class="text-gold text-xs font-medium">ما يميّزنا</span>
-     </div>
-     <h2 class="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">لماذا <span class="text-gold-gradient">THE FUTURE</span>؟</h2>
-    </div>
-    <div class="grid sm:grid-cols-2 lg:grid-cols-5 gap-5">
-     <div class="reveal service-card rounded-2xl bg-darkCard p-6 text-center group cursor-default">
-      <div class="w-12 h-12 mx-auto rounded-xl bg-gold/10 flex items-center justify-center mb-4 group-hover:bg-gold/20 transition-all"><i data-lucide="rocket" style="width:22px;height:22px;color:#C9A84C"></i>
-      </div>
-      <h3 class="font-heading font-semibold mb-2 text-sm">تصاميم مستقبلية</h3>
-      <p class="text-gray-600 text-xs leading-relaxed">نواكب أحدث اتجاهات التصميم العالمي</p>
-     </div>
-     <div class="reveal service-card rounded-2xl bg-darkCard p-6 text-center group cursor-default">
-      <div class="w-12 h-12 mx-auto rounded-xl bg-gold/10 flex items-center justify-center mb-4 group-hover:bg-gold/20 transition-all"><i data-lucide="scan" style="width:22px;height:22px;color:#C9A84C"></i>
-      </div>
-      <h3 class="font-heading font-semibold mb-2 text-sm">اهتمام بالتفاصيل</h3>
-      <p class="text-gray-600 text-xs leading-relaxed">كل بكسل له معنى وهدف</p>
-     </div>
-     <div class="reveal service-card rounded-2xl bg-darkCard p-6 text-center group cursor-default">
-      <div class="w-12 h-12 mx-auto rounded-xl bg-gold/10 flex items-center justify-center mb-4 group-hover:bg-gold/20 transition-all"><i data-lucide="puzzle" style="width:22px;height:22px;color:#C9A84C"></i>
-      </div>
-      <h3 class="font-heading font-semibold mb-2 text-sm">هوية متكاملة</h3>
-      <p class="text-gray-600 text-xs leading-relaxed">ليس مجرد تصميم بل نظام كامل</p>
-     </div>
-     <div class="reveal service-card rounded-2xl bg-darkCard p-6 text-center group cursor-default">
-      <div class="w-12 h-12 mx-auto rounded-xl bg-gold/10 flex items-center justify-center mb-4 group-hover:bg-gold/20 transition-all"><i data-lucide="zap" style="width:22px;height:22px;color:#C9A84C"></i>
-      </div>
-      <h3 class="font-heading font-semibold mb-2 text-sm">سرعة التنفيذ</h3>
-      <p class="text-gray-600 text-xs leading-relaxed">نلتزم بالمواعيد دون تنازل عن الجودة</p>
-     </div>
-     <div class="reveal service-card rounded-2xl bg-darkCard p-6 text-center group cursor-default">
-      <div class="w-12 h-12 mx-auto rounded-xl bg-gold/10 flex items-center justify-center mb-4 group-hover:bg-gold/20 transition-all"><i data-lucide="headphones" style="width:22px;height:22px;color:#C9A84C"></i>
-      </div>
-      <h3 class="font-heading font-semibold mb-2 text-sm">دعم مستمر</h3>
-      <p class="text-gray-600 text-xs leading-relaxed">معك في كل خطوة من البداية</p>
-     </div>
-    </div>
-   </div>
-  </section>
-  <section id="portfolio" class="relative py-24 sm:py-32 bg-gradient-to-b from-transparent via-gold/[0.02] to-transparent">
-   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="reveal text-center mb-16">
-     <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-gold/20 bg-gold/5 mb-6"><span class="text-gold text-xs font-medium">معرض أعمالنا</span>
-     </div>
-     <h2 class="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">نماذج <span class="text-gold-gradient">أعمال</span></h2>
-     <p class="text-gray-500 max-w-xl mx-auto">مشاريعنا القادمة ستتحدث عنا</p>
-    </div>
-    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-     <div class="reveal service-card rounded-2xl bg-darkCard overflow-hidden group cursor-default">
-      <div class="aspect-video bg-gradient-to-br from-gold/10 via-darkCard to-gold/5 flex items-center justify-center relative overflow-hidden">
-       <div class="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(201,168,76,0.05)_50%,transparent_75%)] bg-[length:200%_200%] group-hover:animate-[shimmer_2s_infinite]"></div>
-       <div class="text-center z-10"><i data-lucide="image" style="width:32px;height:32px;color:#C9A84C;opacity:0.4"></i>
-        <p class="text-gray-600 text-xs mt-2">تصميم إعلاني</p>
-       </div>
-      </div>
-      <div class="p-5">
-       <h3 class="font-heading font-semibold text-sm mb-1">حملة إعلانية</h3>
-       <p class="text-gray-600 text-xs">قريبًا...</p>
-      </div>
-     </div>
-     <div class="reveal service-card rounded-2xl bg-darkCard overflow-hidden group cursor-default">
-      <div class="aspect-video bg-gradient-to-br from-gold/10 via-darkCard to-gold/5 flex items-center justify-center relative overflow-hidden">
-       <div class="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(201,168,76,0.05)_50%,transparent_75%)] bg-[length:200%_200%] group-hover:animate-[shimmer_2s_infinite]"></div>
-       <div class="text-center z-10"><i data-lucide="hexagon" style="width:32px;height:32px;color:#C9A84C;opacity:0.4"></i>
-        <p class="text-gray-600 text-xs mt-2">شعار وهوية</p>
-       </div>
-      </div>
-      <div class="p-5">
-       <h3 class="font-heading font-semibold text-sm mb-1">هوية بصرية كاملة</h3>
-       <p class="text-gray-600 text-xs">قريبًا...</p>
-      </div>
-     </div>
-     <div class="reveal service-card rounded-2xl bg-darkCard overflow-hidden group cursor-default">
-      <div class="aspect-video bg-gradient-to-br from-gold/10 via-darkCard to-gold/5 flex items-center justify-center relative overflow-hidden">
-       <div class="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(201,168,76,0.05)_50%,transparent_75%)] bg-[length:200%_200%] group-hover:animate-[shimmer_2s_infinite]"></div>
-       <div class="text-center z-10"><i data-lucide="layout" style="width:32px;height:32px;color:#C9A84C;opacity:0.4"></i>
-        <p class="text-gray-600 text-xs mt-2">تطوير موقع</p>
-       </div>
-      </div>
-      <div class="p-5">
-       <h3 class="font-heading font-semibold text-sm mb-1">موقع إلكتروني عصري</h3>
-       <p class="text-gray-600 text-xs">قريبًا...</p>
-      </div>
-     </div>
-    </div>
-   </div>
-  </section>
-  <section id="contact" class="relative py-24 sm:py-32">
-   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="reveal max-w-2xl mx-auto">
-     <div class="text-center mb-12">
-      <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-gold/20 bg-gold/5 mb-6"><span class="text-gold text-xs font-medium">ابدأ الآن</span>
-      </div>
-      <h2 id="contact-heading" class="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">هل أنت جاهز لبناء <span class="text-gold-gradient">مستقبلك</span> الرقمي؟</h2>
-      <p class="text-gray-500 text-base sm:text-lg">املأ البيانات أدناه وسنرسل لك عرض سعر مخصص على واتساب</p>
-     </div>
-     <form id="order-form" class="space-y-5 bg-darkCard rounded-2xl p-8 border border-darkBorder">
-      <div>
-       <label for="name" class="block text-sm font-medium text-gray-300 mb-2">الاسم الكامل *</label> <input type="text" id="name" name="name" required placeholder="أحمد محمد" class="w-full input-dark rounded-lg px-4 py-3 text-white placeholder-gray-600">
-      </div>
-      <div>
-       <label for="phone" class="block text-sm font-medium text-gray-300 mb-2">رقم الهاتف *</label> <input type="tel" id="phone" name="phone" required placeholder="0798XXXXXXX" class="w-full input-dark rounded-lg px-4 py-3 text-white placeholder-gray-600">
-      </div>
-      <div>
-       <label for="project-type" class="block text-sm font-medium text-gray-300 mb-2">نوع الخدمة *</label> <select id="project-type" name="project-type" required class="w-full input-dark rounded-lg px-4 py-3 text-white bg-darkCard"> <option value="" disabled selected>اختر الخدمة</option> <option value="تصميم إعلانات">تصميم إعلانات</option> <option value="تصميم شعار">تصميم شعار</option> <option value="تطوير موقع">تطوير موقع</option> <option value="هوية بصرية">هوية بصرية كاملة</option> <option value="خدمات أخرى">خدمات أخرى</option> </select>
-      </div>
-      <div>
-       <label for="budget" class="block text-sm font-medium text-gray-300 mb-2">الميزانية المتوقعة</label> <select id="budget" name="budget" class="w-full input-dark rounded-lg px-4 py-3 text-white bg-darkCard"> <option value="">لم أقرر بعد</option> <option value="أقل من 500 دولار">أقل من 500 دولار</option> <option value="500 - 1000 دولار">500 - 1000 دولار</option> <option value="1000 - 2500 دولار">1000 - 2500 دولار</option> <option value="أكثر من 2500 دولار">أكثر من 2500 دولار</option> </select>
-      </div>
-      <div>
-       <label for="details" class="block text-sm font-medium text-gray-300 mb-2">تفاصيل المشروع</label> <textarea id="details" name="details" placeholder="صف لنا فكرتك وما تتوقع..." class="w-full input-dark rounded-lg px-4 py-3 text-white placeholder-gray-600 resize-none" rows="4"></textarea>
-      </div><button type="submit" class="w-full btn-gold py-3.5 rounded-xl font-semibold text-base transition-all hover:shadow-lg flex items-center justify-center gap-2"> إرسال على واتساب <i data-lucide="send" style="width:18px;height:18px"></i> </button>
-      <p class="text-xs text-gray-600 text-center">سيتم فتح واتساب تلقائياً برسالتك</p>
-     </form>
-     <div class="pt-12 border-t border-darkBorder mt-12">
-      <p class="text-center text-gray-500 text-sm mb-6">أو تواصل معنا مباشرة عبر</p>
-      <div class="flex justify-center gap-4"><a href="https://wa.me/962788749174?text=مرحبا%2C%20أنا%20مهتم%20بخدماتكم" target="_blank" rel="noopener noreferrer" class="w-12 h-12 rounded-xl border border-darkBorder bg-darkCard hover:border-gold/30 hover:bg-gold/5 transition-all flex items-center justify-center group" aria-label="WhatsApp"> <i data-lucide="message-circle" style="width:20px;height:20px;color:#666" class="group-hover:text-gold"></i> </a> <a href="https://www.instagram.com/thefuture_visions/" target="_blank" rel="noopener noreferrer" class="w-12 h-12 rounded-xl border border-darkBorder bg-darkCard hover:border-gold/30 hover:bg-gold/5 transition-all flex items-center justify-center group" aria-label="Instagram"> <i data-lucide="instagram" style="width:20px;height:20px;color:#666" class="group-hover:text-gold"></i> </a> <a href="https://www.linkedin.com/in/future-company-80169539b/" target="_blank" rel="noopener noreferrer" class="w-12 h-12 rounded-xl border border-darkBorder bg-darkCard hover:border-gold/30 hover:bg-gold/5 transition-all flex items-center justify-center group" aria-label="LinkedIn"> <i data-lucide="linkedin" style="width:20px;height:20px;color:#666" class="group-hover:text-gold"></i> </a> <a href="mailto:fuchar7@gmail.com?subject=استفسار%20عن%20الخدمات&amp;body=مرحبا%2C%20أنا%20مهتم%20بخدماتكم" class="w-12 h-12 rounded-xl border border-darkBorder bg-darkCard hover:border-gold/30 hover:bg-gold/5 transition-all flex items-center justify-center group" aria-label="Email"> <i data-lucide="mail" style="width:20px;height:20px;color:#666" class="group-hover:text-gold"></i> </a>
-      </div>
-     </div>
-    </div>
-   </div>
-  </section>
-  <footer class="relative py-12 border-t border-darkBorder">
-   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
-     <div class="flex items-center gap-3">
-      <svg class="w-8 h-8" viewbox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
-       <defs>
-        <lineargradient id="logoGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
-         <stop offset="0%" style="stop-color:#C9A84C;stop-opacity:1" />
-         <stop offset="100%" style="stop-color:#E2C878;stop-opacity:1" />
-        </lineargradient>
-       </defs> <circle cx="30" cy="30" r="28" fill="url(#logoGradient2)" opacity="0.95" /> <circle cx="30" cy="30" r="26" fill="#0A0A0A" /> <path d="M 15 12 L 45 12 L 45 16 L 37 16 L 37 40 L 32 40 L 32 16 L 15 16 Z" fill="url(#logoGradient2)" /> <path d="M 17 20 L 17 45 L 22 45 L 22 33 L 40 33 L 40 29 L 22 29 L 22 24 L 40 24 L 40 20 Z" fill="url(#logoGradient2)" /> <line x1="15" y1="48" x2="45" y2="48" stroke="url(#logoGradient2)" stroke-width="1.5" opacity="0.6" />
-      </svg><span class="font-heading font-semibold text-sm">THE FUTURE</span>
-     </div>
-     <p class="text-gray-600 text-xs">© 2025 THE FUTURE. جميع الحقوق محفوظة.</p>
-    </div>
-   </div>
-  </footer>
-  <script>
-    const config = { background_color: '#0A0A0A', surface_color: '#141414', text_color: '#FFFFFF', primary_action_color: '#C9A84C', secondary_action_color: '#E2C878', font_family: 'Noto Sans Arabic', font_size: 16, hero_title: 'نبني مستقبلك الرقمي', hero_description: 'نحن شركة خدمات رقمية متخصصة في الإعلانات، تصميم الشعارات، تطوير المواقع، وبناء الهوية البصرية بأسلوب احترافي يعكس قوة علامتك.', about_text: 'في THE FUTURE نؤمن أن التصميم ليس شكلًا فقط، بل تجربة وهوية ورسالة. نساعد الشركات والأفراد على بناء حضور رقمي قوي يعكس قيمهم ويقودهم للمستقبل.', contact_heading: 'هل أنت جاهز لبناء مستقبلك الرقمي؟' };
 
-    window.elementSdk.init({
-      defaultConfig: config,
-      onConfigChange: (c) => {
-        Object.assign(config, c);
-        document.getElementById('app-wrapper').style.backgroundColor = config.background_color;
-        document.querySelectorAll('.service-card, .input-dark, select').forEach(el => el.style.backgroundColor = config.surface_color);
-        document.body.style.color = config.text_color;
-        document.querySelectorAll('.text-gold-gradient').forEach(el => {
-          el.style.background = `linear-gradient(135deg, ${config.primary_action_color} 0%, ${config.secondary_action_color} 100%)`;
-          el.style.webkitBackgroundClip = 'text';
-          el.style.webkitTextFillColor = 'transparent';
-          el.style.backgroundClip = 'text';
-        });
-        document.querySelectorAll('.btn-gold').forEach(el => el.style.background = `linear-gradient(135deg, ${config.primary_action_color} 0%, ${config.secondary_action_color} 100%)`);
-        document.querySelectorAll('.btn-outline').forEach(el => { el.style.borderColor = config.primary_action_color + '66'; el.style.color = config.primary_action_color; });
-        document.body.style.fontFamily = `${config.font_family}, sans-serif`;
-        if (document.getElementById('hero-title')) document.getElementById('hero-title').textContent = config.hero_title;
-        if (document.getElementById('hero-desc')) document.getElementById('hero-desc').textContent = config.hero_description;
-        if (document.getElementById('about-text')) document.getElementById('about-text').textContent = config.about_text;
-      },
-      mapToCapabilities: () => ({
-        recolorables: [
-          { get: () => config.background_color, set: (v) => { config.background_color = v; window.elementSdk.setConfig({ background_color: v }); } },
-          { get: () => config.surface_color, set: (v) => { config.surface_color = v; window.elementSdk.setConfig({ surface_color: v }); } },
-          { get: () => config.text_color, set: (v) => { config.text_color = v; window.elementSdk.setConfig({ text_color: v }); } },
-          { get: () => config.primary_action_color, set: (v) => { config.primary_action_color = v; window.elementSdk.setConfig({ primary_action_color: v }); } },
-          { get: () => config.secondary_action_color, set: (v) => { config.secondary_action_color = v; window.elementSdk.setConfig({ secondary_action_color: v }); } }
-        ],
-        borderables: [],
-        fontEditable: { get: () => config.font_family, set: (v) => { config.font_family = v; window.elementSdk.setConfig({ font_family: v }); } },
-        fontSizeable: { get: () => config.font_size, set: (v) => { config.font_size = v; window.elementSdk.setConfig({ font_size: v }); } }
-      }),
-      mapToEditPanelValues: () => new Map([['hero_title', config.hero_title], ['hero_description', config.hero_description], ['about_text', config.about_text], ['contact_heading', config.contact_heading]])
-    });
+    // Element SDK initialization
+    const config = {
+      hero_title: 'نبني مستقبلك الرقمي',
+      hero_description: 'نحن شركة خدمات رقمية متخصصة في الإعلانات، تصميم الشعارات، تطوير المواقع، وبناء الهوية البصرية بأسلوب احترافي يعكس قوة علامتك.',
+      about_text: 'في THE FUTURE نؤمن أن التصميم ليس شكلًا فقط، بل تجربة وهوية ورسالة. نساعد الشركات والأفراد على بناء حضور رقمي قوي يعكس قيمهم ويقودهم للمستقبل.',
+      contact_heading: 'هل أنت جاهز لبناء مستقبلك الرقمي؟'
+    };
 
-    document.getElementById('menu-btn').addEventListener('click', () => document.getElementById('mobile-menu').classList.add('open'));
-    document.getElementById('close-menu').addEventListener('click', () => document.getElementById('mobile-menu').classList.remove('open'));
-    document.querySelectorAll('.mobile-link').forEach(link => link.addEventListener('click', () => document.getElementById('mobile-menu').classList.remove('open')));
-
-    const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, { threshold: 0.1 });
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig: config,
+        onConfigChange: (c) => {
+          Object.assign(config, c);
+        },
+        mapToCapabilities: () => ({
+          recolorables: [],
+          borderables: [],
+          fontEditable: undefined,
+          fontSizeable: undefined
+        }),
+        mapToEditPanelValues: () => new Map([
+          ['hero_title', config.hero_title],
+          ['hero_description', config.hero_description],
+          ['about_text', config.about_text],
+          ['contact_heading', config.contact_heading]
+        ])
+      });
+    }
 
     lucide.createIcons();
-
-    document.getElementById('order-form').addEventListener('submit', (e) => {
-      e.preventDefault();
-      const name = document.getElementById('name').value.trim();
-      const phone = document.getElementById('phone').value.trim();
-      const projectType = document.getElementById('project-type').value;
-      const budget = document.getElementById('budget').value;
-      const details = document.getElementById('details').value.trim();
-      if (!name || !phone || !projectType) return;
-      let msg = `*طلب جديد من موقع THE FUTURE*%0A%0A📝 *البيانات الشخصية*%0Aالاسم: ${name}%0Aالهاتف: ${phone}%0A%0A🎯 *تفاصيل المشروع*%0Aنوع الخدمة: ${projectType}%0A`;
-      if (budget) msg += `الميزانية: ${budget}%0A`;
-      if (details) msg += `التفاصيل: ${details}%0A`;
-      window.open(`https://wa.me/962788749174?text=${msg}`, '_blank');
-      document.getElementById('order-form').reset();
-    });
   </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9deb81dbd05abcc7',t:'MTc3MzkxMzEzOC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9deb9d86d6c5bcc7',t:'MTc3MzkxNDI3Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
