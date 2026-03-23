@@ -1,0 +1,14 @@
+{
+  "name": "the-future-website",
+  "version": "1.0.0",
+  "description": "Website for THE FUTURE company",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "express-basic-auth": "^1.2.1"
+  }
+}
