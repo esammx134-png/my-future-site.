@@ -547,7 +547,6 @@
      </div>
      <h1 class="hero-title fade-in delay-2">نبني <span class="text-gradient">مستقبلك</span> الرقمي</h1>
      <p class="hero-desc fade-in delay-3">نحن شركة خدمات رقمية متخصصة في الإعلانات، تصميم الشعارات، تطوير المواقع، وبناء الهوية البصرية بأسلوب احترافي يعكس قوة علامتك.</p>
-     <p id="visitor-counter" class="hero-desc fade-in delay-4">عدد الزوار الآن: <strong id="visitor-count">جاري التحميل...</strong></p>
      <div class="btn-group fade-in delay-4"><a href="#contact" class="btn btn-gold">ابدأ مشروعك</a> <a href="#portfolio" class="btn btn-outline">أعمالنا</a>
      </div>
     </div>
@@ -856,27 +855,6 @@
       document.getElementById('order-form').reset();
     });
 
-    // زوار الموقع - جلب وتحديث العدد من الباك اند
-    async function updateVisitorCount() {
-      const countEl = document.getElementById('visitor-count');
-      if (!countEl) return;
-      console.log('Starting visitor count update...');
-      try {
-        const res = await fetch('/api/visitors', { cache: 'no-store' });
-        console.log('Fetch response:', res);
-        if (!res.ok) throw new Error('Network response was not ok');
-        const data = await res.json();
-        console.log('Data received:', data);
-        countEl.textContent = data.count?.toLocaleString('ar-EG') || data.count;
-        console.log('Updated count to:', countEl.textContent);
-      } catch (error) {
-        console.error('Visitor count failed:', error);
-        countEl.textContent = 'خطأ في التحميل';
-      }
-    }
-
-    updateVisitorCount();
-
     // Element SDK initialization
     const config = {
       hero_title: 'نبني مستقبلك الرقمي',
@@ -908,6 +886,5 @@
 
     lucide.createIcons();
   </script>
-  <script src="script.js"></script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9deb9d86d6c5bcc7',t:'MTc3MzkxNDI3Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9e0b878e65775ccf',t:'MTc3NDI0ODkxNi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
