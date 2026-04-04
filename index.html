@@ -3,7 +3,7 @@
  <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>THE FUTURE - خدمات رقمية احترافية</title>
+  <title>THE FUTURE - خدمات رقمية احترافية ومتجر</title>
   <script src="/_sdk/element_sdk.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
   <style>
@@ -477,28 +477,157 @@
 
     .icon-btn:hover svg { stroke: var(--gold); }
 
-    /* Footer */
-    footer {
-      padding: 2rem 1.5rem;
-      border-top: 1px solid var(--dark-border);
+    /* --- Store & Cart Styles --- */
+    .product-card {
+      background: var(--dark-card);
+      border: 1px solid var(--dark-border);
+      border-radius: 1.5rem;
+      overflow: hidden;
+      transition: all 0.4s ease;
+    }
+    .product-card:hover {
+      border-color: var(--gold);
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    }
+    .product-img {
+      height: 220px;
+      background: #1a1a1a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .product-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .product-card:hover .product-img img { transform: scale(1.05); }
+    .product-badge {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: var(--gold);
+      color: var(--dark-bg);
+      padding: 0.3rem 0.8rem;
+      border-radius: 2rem;
+      font-size: 0.75rem;
+      font-weight: bold;
+      z-index: 2;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
+    .product-info { padding: 1.5rem; }
+    .product-price {
+      color: var(--gold);
+      font-size: 1.3rem;
+      font-weight: bold;
+      margin: 0.5rem 0;
+    }
+    
+    .cart-btn-floating {
+      position: fixed;
+      bottom: 2rem;
+      left: 2rem;
+      background: var(--gold);
+      color: var(--dark-bg);
+      width: 4rem;
+      height: 4rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 10px 25px rgba(201, 168, 76, 0.3);
+      cursor: pointer;
+      z-index: 90;
+      transition: all 0.3s;
+    }
+    .cart-btn-floating:hover { transform: scale(1.1); }
+    .cart-badge {
+      position: absolute;
+      top: -2px;
+      right: -2px;
+      background: #E53E3E;
+      color: white;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: bold;
+    }
+    .cart-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 10, 10, 0.95);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      padding: 1rem;
+    }
+    .cart-modal.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .cart-content {
+      background: var(--dark-card);
+      border: 1px solid var(--dark-border);
+      width: 100%;
+      max-width: 450px;
+      border-radius: 1.5rem;
+      padding: 2rem;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    .cart-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      flex-wrap: wrap;
-      gap: 1rem;
+      margin-bottom: 1.5rem;
     }
-
-    .footer-brand { 
+    .close-cart {
+      background: none;
+      border: none;
+      color: var(--text-light);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+    .cart-item {
       display: flex;
+      justify-content: space-between;
       align-items: center;
-      gap: 0.75rem;
-      font-size: 0.95rem;
-      font-weight: 600;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--dark-border);
     }
-
-    .footer-text { 
+    .cart-item-info h4 { font-size: 1rem; margin-bottom: 0.25rem; }
+    .cart-item-price { color: var(--gold); }
+    .remove-btn {
+      color: #E53E3E;
+      background: rgba(229, 62, 62, 0.1);
+      border: none;
+      padding: 0.3rem 0.8rem;
+      border-radius: 0.5rem;
+      cursor: pointer;
       font-size: 0.85rem;
-      color: var(--text-gray);
+      transition: 0.3s;
+    }
+    .remove-btn:hover { background: rgba(229, 62, 62, 0.2); }
+    .cart-total {
+      font-size: 1.25rem;
+      font-weight: bold;
+      margin: 1.5rem 0;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(201, 168, 76, 0.2);
+      display: flex;
+      justify-content: space-between;
     }
 
     /* Scrollbar */
@@ -516,28 +645,45 @@
   <script src="https://cdn.tailwindcss.com/3.4.17" type="text/javascript"></script>
   <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
  </head>
- <body><!-- Navigation -->
+ <body>
+
   <nav>
    <div class="nav-content"><a href="#hero" class="logo">
-     <svg width="32" height="32" viewbox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="19" stroke="url(#grad1)" stroke-width="2" /> <text x="20" y="25" text-anchor="middle" fill="url(#grad1)" font-size="16" font-weight="bold" font-family="Arial">
+     <svg width="32" height="32" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="19" stroke="url(#grad1)" stroke-width="2" /> <text x="20" y="25" text-anchor="middle" fill="url(#grad1)" font-size="16" font-weight="bold" font-family="Arial">
        F
       </text> <defs>
-       <lineargradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+       <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
         <stop offset="0%" style="stop-color:#C9A84C;stop-opacity:1" />
         <stop offset="100%" style="stop-color:#E2C878;stop-opacity:1" />
-       </lineargradient>
+       </linearGradient>
       </defs>
      </svg><span>THE <span class="logo-gradient">FUTURE</span></span> </a>
-    <div class="nav-links"><a href="#hero">الرئيسية</a> <a href="#about">من نحن</a> <a href="#services">خدماتنا</a> <a href="#why-us">لماذا نحن</a> <a href="#portfolio">أعمالنا</a> <a href="#contact" class="btn btn-gold">تواصل معنا</a>
+    <div class="nav-links">
+        <a href="#hero">الرئيسية</a> 
+        <a href="#about">من نحن</a> 
+        <a href="#services">خدماتنا</a> 
+        <a href="#why-us">لماذا نحن</a> 
+        <a href="#portfolio">أعمالنا</a> 
+        <a href="#store">المتجر</a>
+        <a href="#contact" class="btn btn-gold">تواصل معنا</a>
     </div><button class="btn-menu" id="menu-btn">☰</button>
    </div>
-  </nav><!-- Mobile Menu -->
+  </nav>
+
   <div class="mobile-menu" id="mobile-menu">
    <div class="mobile-menu-header"><span style="font-weight: bold; font-size: 1.25rem;">THE <span class="logo-gradient">FUTURE</span></span> <button id="close-menu" style="background: none; border: none; color: var(--text-light); cursor: pointer; font-size: 1.5rem;">✕</button>
    </div>
-   <div class="mobile-menu-links"><a href="#hero" class="mobile-link">الرئيسية</a> <a href="#about" class="mobile-link">من نحن</a> <a href="#services" class="mobile-link">خدماتنا</a> <a href="#why-us" class="mobile-link">لماذا نحن</a> <a href="#portfolio" class="mobile-link">أعمالنا</a> <a href="#contact" class="mobile-link" style="color: var(--gold);">تواصل معنا</a>
+   <div class="mobile-menu-links">
+        <a href="#hero" class="mobile-link">الرئيسية</a> 
+        <a href="#about" class="mobile-link">من نحن</a> 
+        <a href="#services" class="mobile-link">خدماتنا</a> 
+        <a href="#why-us" class="mobile-link">لماذا نحن</a> 
+        <a href="#portfolio" class="mobile-link">أعمالنا</a> 
+        <a href="#store" class="mobile-link">المتجر</a>
+        <a href="#contact" class="mobile-link" style="color: var(--gold);">تواصل معنا</a>
    </div>
-  </div><!-- Hero Section -->
+  </div>
+
   <section id="hero">
    <div class="orb orb-1"></div>
    <div class="orb orb-2"></div>
@@ -547,11 +693,12 @@
      </div>
      <h1 class="hero-title fade-in delay-2">نبني <span class="text-gradient">مستقبلك</span> الرقمي</h1>
      <p class="hero-desc fade-in delay-3">نحن شركة خدمات رقمية متخصصة في الإعلانات، تصميم الشعارات، تطوير المواقع، وبناء الهوية البصرية بأسلوب احترافي يعكس قوة علامتك.</p>
-     <div class="btn-group fade-in delay-4"><a href="#contact" class="btn btn-gold">ابدأ مشروعك</a> <a href="#portfolio" class="btn btn-outline">أعمالنا</a>
+     <div class="btn-group fade-in delay-4"><a href="#contact" class="btn btn-gold">ابدأ مشروعك</a> <a href="#store" class="btn btn-outline">تصفح المتجر</a>
      </div>
     </div>
    </div>
-  </section><!-- About Section -->
+  </section>
+
   <section id="about">
    <div class="container">
     <div style="display: grid; grid-template-columns: 1fr; gap: 3rem; align-items: center;">
@@ -563,7 +710,7 @@
       <p class="section-desc" style="text-align: right; margin-left: 0;">في THE FUTURE نؤمن أن التصميم ليس شكلًا فقط، بل تجربة وهوية ورسالة. نساعد الشركات والأفراد على بناء حضور رقمي قوي يعكس قيمهم ويقودهم للمستقبل.</p>
       <div class="grid grid-2" style="margin-top: 2rem;">
        <div class="card">
-        <svg width="20" height="20" viewbox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" style="margin-bottom: 0.5rem;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" style="margin-bottom: 0.5rem;">
          <circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14"></polyline>
         </svg>
         <div style="font-size: 0.9rem; color: var(--text-light);">
@@ -571,7 +718,7 @@
         </div>
        </div>
        <div class="card">
-        <svg width="20" height="20" viewbox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" style="margin-bottom: 0.5rem;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" style="margin-bottom: 0.5rem;">
          <path d="M21.21 15.89A10 10 0 1 1 8 2.83" /><line x1="22" y1="4" x2="12" y2="14.01" />
         </svg>
         <div style="font-size: 0.9rem; color: var(--text-light);">
@@ -579,7 +726,7 @@
         </div>
        </div>
        <div class="card">
-        <svg width="20" height="20" viewbox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" style="margin-bottom: 0.5rem;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" style="margin-bottom: 0.5rem;">
          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
         </svg>
         <div style="font-size: 0.9rem; color: var(--text-light);">
@@ -587,7 +734,7 @@
         </div>
        </div>
        <div class="card">
-        <svg width="20" height="20" viewbox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" style="margin-bottom: 0.5rem;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" style="margin-bottom: 0.5rem;">
          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
         </svg>
         <div style="font-size: 0.9rem; color: var(--text-light);">
@@ -598,20 +745,19 @@
      </div>
     </div>
    </div>
-  </section><!-- Services Section -->
+  </section>
+
   <section id="services" style="background: linear-gradient(to bottom, transparent, rgba(201,168,76,0.02), transparent);">
    <div class="container">
     <div class="section-header">
-     <div class="section-badge">
-      ما نقدّمه
-     </div>
+     <div class="section-badge">ما نقدّمه</div>
      <h2 class="section-title"><span class="text-gradient">خدماتنا</span> المتخصصة</h2>
      <p class="section-desc">حلول رقمية متكاملة تلبي جميع احتياجاتك الإبداعية</p>
     </div>
     <div class="grid grid-4">
      <div class="card reveal">
       <div class="card-icon">
-       <svg width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2">
+       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2">
         <path d="M9 11H3v2h6" /><path d="M9 5H3v2h6" /><path d="M9 17H3v2h6" /><path d="M16 5h2v2h-2" /><path d="M16 11h2v2h-2" /><path d="M16 17h2v2h-2" /><path d="M12 5h1v12h-1" />
        </svg>
       </div>
@@ -620,7 +766,7 @@
      </div>
      <div class="card reveal">
       <div class="card-icon">
-       <svg width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2">
+       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2">
         <path d="M6 4h12v3H6z" /><path d="M6 8h12v8H6z" /><path d="M6 17h12v2H6z" />
        </svg>
       </div>
@@ -629,7 +775,7 @@
      </div>
      <div class="card reveal">
       <div class="card-icon">
-       <svg width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2">
+       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2">
         <rect x="2" y="3" width="20" height="14" rx="2" ry="2" /><path d="M2 17h20" />
        </svg>
       </div>
@@ -638,7 +784,7 @@
      </div>
      <div class="card reveal">
       <div class="card-icon">
-       <svg width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2">
+       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2">
         <circle cx="12" cy="12" r="1" /><circle cx="19" cy="3" r="1" /><circle cx="9" cy="21" r="1" /><path d="M12 12L19 3" /><path d="M12 12L9 21" />
        </svg>
       </div>
@@ -647,19 +793,18 @@
      </div>
     </div>
    </div>
-  </section><!-- Why Us Section -->
+  </section>
+
   <section id="why-us">
    <div class="container">
     <div class="section-header">
-     <div class="section-badge">
-      ما يميّزنا
-     </div>
+     <div class="section-badge">ما يميّزنا</div>
      <h2 class="section-title">لماذا <span class="text-gradient">THE FUTURE</span>؟</h2>
     </div>
     <div class="grid grid-5">
      <div class="card reveal" style="text-align: center;">
       <div style="width: 48px; height: 48px; margin: 0 auto 1rem; background: rgba(201,168,76,0.1); border-radius: 0.75rem; display: flex; align-items: center; justify-content: center;">
-       <svg width="22" height="22" viewbox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2">
+       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2">
         <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
        </svg>
       </div>
@@ -668,7 +813,7 @@
      </div>
      <div class="card reveal" style="text-align: center;">
       <div style="width: 48px; height: 48px; margin: 0 auto 1rem; background: rgba(201,168,76,0.1); border-radius: 0.75rem; display: flex; align-items: center; justify-content: center;">
-       <svg width="22" height="22" viewbox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2">
+       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2">
         <circle cx="12" cy="12" r="1" /><circle cx="12" cy="5" r="1" /><circle cx="12" cy="19" r="1" /><path d="M8 12a4 4 0 1 0 8 0 4 4 0 1 0-8 0" />
        </svg>
       </div>
@@ -677,7 +822,7 @@
      </div>
      <div class="card reveal" style="text-align: center;">
       <div style="width: 48px; height: 48px; margin: 0 auto 1rem; background: rgba(201,168,76,0.1); border-radius: 0.75rem; display: flex; align-items: center; justify-content: center;">
-       <svg width="22" height="22" viewbox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2">
+       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2">
         <path d="M6 8h12v8H6z" /><path d="M12 8v-4" /><path d="M12 16v4" />
        </svg>
       </div>
@@ -686,7 +831,7 @@
      </div>
      <div class="card reveal" style="text-align: center;">
       <div style="width: 48px; height: 48px; margin: 0 auto 1rem; background: rgba(201,168,76,0.1); border-radius: 0.75rem; display: flex; align-items: center; justify-content: center;">
-       <svg width="22" height="22" viewbox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2">
+       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2">
         <polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polyline>
        </svg>
       </div>
@@ -695,7 +840,7 @@
      </div>
      <div class="card reveal" style="text-align: center;">
       <div style="width: 48px; height: 48px; margin: 0 auto 1rem; background: rgba(201,168,76,0.1); border-radius: 0.75rem; display: flex; align-items: center; justify-content: center;">
-       <svg width="22" height="22" viewbox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2">
+       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2">
         <path d="M23 7l-7 5 7 5V7z" /><rect x="1" y="5" width="15" height="14" rx="2" ry="2" />
        </svg>
       </div>
@@ -704,20 +849,19 @@
      </div>
     </div>
    </div>
-  </section><!-- Portfolio Section -->
+  </section>
+
   <section id="portfolio" style="background: linear-gradient(to bottom, transparent, rgba(201,168,76,0.02), transparent);">
    <div class="container">
     <div class="section-header">
-     <div class="section-badge">
-      معرض أعمالنا
-     </div>
+     <div class="section-badge">معرض أعمالنا</div>
      <h2 class="section-title">نماذج <span class="text-gradient">أعمال</span></h2>
      <p class="section-desc">مشاريعنا القادمة ستتحدث عنا</p>
     </div>
     <div class="grid grid-2">
      <div class="card reveal" style="overflow: hidden;">
       <div style="aspect-ratio: 16/9; background: linear-gradient(135deg, rgba(201,168,76,0.1), var(--dark-card)); border-radius: 1rem; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 0.5rem;">
-       <svg width="32" height="32" viewbox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5" style="opacity: 0.4;">
+       <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5" style="opacity: 0.4;">
         <rect x="3" y="3" width="18" height="18" rx="2" ry="2" /><circle cx="8.5" cy="8.5" r="1.5" /><polyline points="21 15 16 10 5 21"></polyline>
        </svg>
        <p style="font-size: 0.85rem; color: var(--text-gray);">تصميم إعلاني</p>
@@ -729,7 +873,7 @@
      </div>
      <div class="card reveal" style="overflow: hidden;">
       <div style="aspect-ratio: 16/9; background: linear-gradient(135deg, rgba(201,168,76,0.1), var(--dark-card)); border-radius: 1rem; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 0.5rem;">
-       <svg width="32" height="32" viewbox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5" style="opacity: 0.4;">
+       <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5" style="opacity: 0.4;">
         <circle cx="12" cy="12" r="9" /><path d="M12 7v5l4 2" />
        </svg>
        <p style="font-size: 0.85rem; color: var(--text-gray);">شعار وهوية</p>
@@ -739,87 +883,185 @@
        <p class="card-desc">قريبًا...</p>
       </div>
      </div>
-     <div class="card reveal" style="overflow: hidden;">
-      <div style="aspect-ratio: 16/9; background: linear-gradient(135deg, rgba(201,168,76,0.1), var(--dark-card)); border-radius: 1rem; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 0.5rem;">
-       <svg width="32" height="32" viewbox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5" style="opacity: 0.4;">
-        <rect x="3" y="3" width="18" height="18" rx="2" ry="2" /><line x1="9" y1="3" x2="9" y2="21" />
-       </svg>
-       <p style="font-size: 0.85rem; color: var(--text-gray);">تطوير موقع</p>
-      </div>
-      <div style="padding: 1.25rem;">
-       <h3 class="card-title" style="font-size: 0.95rem;">موقع إلكتروني عصري</h3>
-       <p class="card-desc">قريبًا...</p>
-      </div>
-     </div>
     </div>
    </div>
-  </section><!-- Contact Section -->
-  <section id="contact">
+  </section>
+
+  <section id="store">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-badge">تسوق الآن</div>
+        <h2 class="section-title">المتجر <span class="text-gradient">الإلكتروني</span></h2>
+        <p class="section-desc">اطلب منتجاتنا الملموسة وخدماتنا الرقمية بكل سهولة</p>
+      </div>
+      
+      <div class="grid grid-4">
+        
+        <div class="product-card reveal">
+          <div class="product-img">
+            <span class="product-badge">إلكترونيات</span>
+            <img src="https://jo-cell.com/cdn/shop/files/7_750x_dccd3e20-9676-47d8-a318-42e681b8b394.webp?v=1734435891&width=700" alt="شاحن لاسلكي">
+          </div>
+          <div class="product-info">
+            <h3 class="card-title">كابل الطاقة الفائق (Type-C to Type-C)   .
+            <p class="card-desc">استمتع بتجربة شحن لا مثيل لها مع الكابل المصمم للمستقبل. يدعم تقنية توصيل الطاقة (PD) لنقل البيانات بسرعة البرق وشحن أجهزتك (ماك بوك، آيباد، أندرويد) في وقت قياسي. متانة عالية وتصميم مضاد للتشابك.
+            <div class="product-price">4JD</div>
+            <button class="btn btn-outline" onclick="addToCart('كابل الطاقة الفائق (Type-C to Type-C)   ', 4)">أضف للسلة</button>
+          </div>
+        </div>
+
+     
+
+     
+
+        <div class="product-card reveal">
+          <div class="product-img">
+            <span class="product-badge">باقة</span>
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5">
+              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+            </svg>
+          </div>
+          <div class="product-info">
+            <h3 class="card-title">إدارة  بزنس</h3>
+            <p class="card-desc">   عمل لوغو احترافي زائد موقع الكتروني او صفحة هبوط متكاملة .</p>
+            <div class="product-price">70JD</div>
+            <button class="btn btn-outline" onclick="addToCart('إدارة  بزنس', 70)">أضف للسلة</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" style="background: linear-gradient(to bottom, transparent, rgba(201,168,76,0.02), transparent);">
    <div class="container" style="max-width: 600px;">
     <div class="reveal" style="text-align: center; margin-bottom: 2rem;">
-     <div class="section-badge">
-      ابدأ الآن
-     </div>
+     <div class="section-badge">ابدأ الآن</div>
      <h2 class="section-title">هل أنت جاهز لبناء <span class="text-gradient">مستقبلك</span> الرقمي؟</h2>
-     <p class="section-desc">املأ البيانات أدناه وسنرسل لك عرض سعر مخصص على واتساب</p>
+     <p class="section-desc">للاستفسارات العامة والمشاريع المخصصة، املأ النموذج وسنتواصل معك</p>
     </div>
     <form id="order-form" class="card">
-     <div class="form-group"><label for="name">الاسم الكامل *</label> <input type="text" id="name" name="name" required placeholder="أحمد محمد">
+     <div class="form-group"><label for="name">الاسم الكامل *</label> <input type="text" id="name" name="name" required placeholder="أحمد محمد"></div>
+     <div class="form-group"><label for="phone">رقم الهاتف *</label> <input type="tel" id="phone" name="phone" required placeholder="0798XXXXXXX"></div>
+     <div class="form-group"><label for="project-type">نوع الخدمة *</label> 
+      <select id="project-type" name="project-type" required> 
+        <option value="" disabled selected>اختر الخدمة</option> 
+        <option value="تصميم إعلانات">تصميم إعلانات</option> 
+        <option value="تصميم شعار">تصميم شعار</option> 
+        <option value="تطوير موقع">تطوير موقع</option> 
+        <option value="هوية بصرية">هوية بصرية كاملة</option> 
+        <option value="شراء منتجات مادية">استفسار عن المنتجات (شواحن الخ)</option> 
+        <option value="خدمات أخرى">خدمات أخرى</option> 
+      </select>
      </div>
-     <div class="form-group"><label for="phone">رقم الهاتف *</label> <input type="tel" id="phone" name="phone" required placeholder="0798XXXXXXX">
+     <div class="form-group"><label for="budget">الميزانية المتوقعة</label> 
+      <select id="budget" name="budget"> 
+        <option value="">لم أقرر بعد</option> 
+        <option value="أقل من 500 دولار">أقل من 500 دولار</option> 
+        <option value="500 - 1000 دولار">500 - 1000 دولار</option> 
+        <option value="1000 - 2500 دولار">1000 - 2500 دولار</option> 
+        <option value="أكثر من 2500 دولار">أكثر من 2500 دولار</option> 
+      </select>
      </div>
-     <div class="form-group"><label for="project-type">نوع الخدمة *</label> <select id="project-type" name="project-type" required> <option value="" disabled selected>اختر الخدمة</option> <option value="تصميم إعلانات">تصميم إعلانات</option> <option value="تصميم شعار">تصميم شعار</option> <option value="تطوير موقع">تطوير موقع</option> <option value="هوية بصرية">هوية بصرية كاملة</option> <option value="خدمات أخرى">خدمات أخرى</option> </select>
-     </div>
-     <div class="form-group"><label for="budget">الميزانية المتوقعة</label> <select id="budget" name="budget"> <option value="">لم أقرر بعد</option> <option value="أقل من 500 دولار">أقل من 500 دولار</option> <option value="500 - 1000 دولار">500 - 1000 دولار</option> <option value="1000 - 2500 دولار">1000 - 2500 دولار</option> <option value="أكثر من 2500 دولار">أكثر من 2500 دولار</option> </select>
-     </div>
-     <div class="form-group"><label for="details">تفاصيل المشروع</label> <textarea id="details" name="details" placeholder="صف لنا فكرتك وما تتوقع..." rows="4"></textarea>
-     </div><button type="submit" class="btn btn-gold" style="width: 100%; justify-content: center;">إرسال على واتساب</button>
+     <div class="form-group"><label for="details">تفاصيل الاستفسار</label> <textarea id="details" name="details" placeholder="صف لنا فكرتك وما تتوقع..." rows="4"></textarea></div>
+     <button type="submit" class="btn btn-gold" style="width: 100%; justify-content: center;">إرسال على واتساب</button>
      <p style="font-size: 0.85rem; color: var(--text-gray); text-align: center; margin-top: 0.75rem;">سيتم فتح واتساب تلقائياً برسالتك</p>
     </form>
+    
     <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--dark-border); text-align: center;">
      <p style="color: var(--text-gray); font-size: 0.9rem; margin-bottom: 1rem;">أو تواصل معنا مباشرة عبر</p>
-     <div class="social-icons"><a href="https://wa.me/962788749174" target="_blank" rel="noopener noreferrer" class="icon-btn" title="WhatsApp">
-       <svg viewbox="0 0 24 24" fill="currentColor">
-        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.67-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421-7.403h-.004a9.87 9.87 0 00-5.031 1.378c-3.055 2.346-3.797 6.511-1.644 9.806 1.289 2.057 3.466 3.42 5.851 3.42h.005c2.852 0 5.701-1.636 7.431-4.331.906-1.52 1.236-3.558.464-5.277l1.898-1.86a.692.692 0 10-.979-.979l-1.92 1.879c-.596-.965-1.604-2.407-3.639-3.878a9.9 9.9 0 00-2.433-1.355zm7.446-2.822c-2.618-2.618-6.833-2.618-9.451 0-2.618 2.617-2.618 6.833 0 9.451 2.617 2.618 6.833 2.618 9.451 0 2.618-2.618 2.618-6.834 0-9.451" />
-       </svg></a> <a href="https://www.instagram.com/thefuture_visions/" target="_blank" rel="noopener noreferrer" class="icon-btn" title="Instagram">
-       <svg viewbox="0 0 24 24">
-        <rect x="2" y="2" width="20" height="20" rx="5" ry="5" fill="none" stroke="currentColor" stroke-width="2" /><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2" /><circle cx="17" cy="7" r="1" fill="currentColor" />
-       </svg></a> <a href="https://www.linkedin.com/company/future/" target="_blank" rel="noopener noreferrer" class="icon-btn" title="LinkedIn">
-       <svg viewbox="0 0 24 24">
-        <rect x="2" y="2" width="20" height="20" rx="5" ry="5" fill="none" stroke="currentColor" stroke-width="2" /><path d="M8 10v5M8 7v.01M12 10v5M16 10v5M8 7h8" stroke="currentColor" stroke-width="1.5" fill="none" />
-       </svg></a> <a href="mailto:fuchar7@gmail.com" class="icon-btn" title="Email">
-       <svg viewbox="0 0 24 24">
-        <rect x="2" y="4" width="20" height="16" rx="2" ry="2" fill="none" stroke="currentColor" stroke-width="2" /><path d="M2 6l10 7 10-7" fill="none" stroke="currentColor" stroke-width="2" />
-       </svg></a>
+     <div class="social-icons">
+       <a href="https://wa.me/962788749174" target="_blank" rel="noopener noreferrer" class="icon-btn" title="WhatsApp">
+         <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.67-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421-7.403h-.004a9.87 9.87 0 00-5.031 1.378c-3.055 2.346-3.797 6.511-1.644 9.806 1.289 2.057 3.466 3.42 5.851 3.42h.005c2.852 0 5.701-1.636 7.431-4.331.906-1.52 1.236-3.558.464-5.277l1.898-1.86a.692.692 0 10-.979-.979l-1.92 1.879c-.596-.965-1.604-2.407-3.639-3.878a9.9 9.9 0 00-2.433-1.355zm7.446-2.822c-2.618-2.618-6.833-2.618-9.451 0-2.618 2.617-2.618 6.833 0 9.451 2.617 2.618 6.833 2.618 9.451 0 2.618-2.618 2.618-6.834 0-9.451" />
+         </svg>
+       </a> 
+       <a href="https://www.instagram.com/thefuture_visions/" target="_blank" rel="noopener noreferrer" class="icon-btn" title="Instagram">
+         <svg viewBox="0 0 24 24">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5" fill="none" stroke="currentColor" stroke-width="2" /><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2" /><circle cx="17" cy="7" r="1" fill="currentColor" />
+         </svg>
+       </a> 
+       <a href="https://www.linkedin.com/company/future/" target="_blank" rel="noopener noreferrer" class="icon-btn" title="LinkedIn">
+         <svg viewBox="0 0 24 24">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5" fill="none" stroke="currentColor" stroke-width="2" /><path d="M8 10v5M8 7v.01M12 10v5M16 10v5M8 7h8" stroke="currentColor" stroke-width="1.5" fill="none" />
+         </svg>
+       </a> 
+       <a href="mailto:fuchar7@gmail.com" class="icon-btn" title="Email">
+         <svg viewBox="0 0 24 24">
+          <rect x="2" y="4" width="20" height="16" rx="2" ry="2" fill="none" stroke="currentColor" stroke-width="2" /><path d="M2 6l10 7 10-7" fill="none" stroke="currentColor" stroke-width="2" />
+         </svg>
+       </a>
      </div>
     </div>
    </div>
-  </section><!-- Footer -->
+  </section>
+
   <footer>
    <div class="footer-brand">
-    <svg width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2">
      <circle cx="12" cy="12" r="10" />
     </svg><span>THE FUTURE</span>
    </div>
    <p class="footer-text">© 2025 THE FUTURE. جميع الحقوق محفوظة.</p>
   </footer>
+
+  <div class="cart-btn-floating" onclick="toggleCart()">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle>
+      <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+    </svg>
+    <div class="cart-badge" id="cart-count">0</div>
+  </div>
+
+  <div class="cart-modal" id="cart-modal">
+    <div class="cart-content">
+      <div class="cart-header">
+        <h2 style="font-size: 1.5rem; font-weight: bold;">سلة الطلبات</h2>
+        <button class="close-cart" onclick="toggleCart()">✕</button>
+      </div>
+      
+      <div id="cart-items-container">
+        <p style="text-align: center; color: var(--text-gray);">السلة فارغة حالياً</p>
+      </div>
+      
+      <div class="cart-total">
+        <span>الإجمالي:</span>
+        <span style="color: var(--gold);"><span id="cart-total-price">0</span>$</span>
+      </div>
+      
+      <form id="checkout-form" style="margin-top: 1.5rem;">
+        <div class="form-group">
+          <label for="checkout-name">الاسم الكامل *</label>
+          <input type="text" id="checkout-name" required placeholder="أدخل اسمك الكريم">
+        </div>
+        <div class="form-group">
+          <label for="checkout-phone">رقم الهاتف *</label>
+          <input type="tel" id="checkout-phone" required placeholder="0798XXXXXXX">
+        </div>
+        <div class="form-group">
+          <label for="checkout-address">العنوان بالتفصيل (للمنتجات المادية)</label>
+          <input type="text" id="checkout-address" placeholder="المدينة، الحي، الشارع...">
+        </div>
+        <button type="button" class="btn btn-gold" style="width: 100%; justify-content: center;" onclick="submitOrder()">إتمام الطلب عبر واتساب</button>
+      </form>
+    </div>
+  </div>
+
   <script>
-    // Mobile menu toggle
+    // --- Mobile Menu Toggle ---
     document.getElementById('menu-btn').addEventListener('click', () => {
       document.getElementById('mobile-menu').classList.add('open');
     });
-
     document.getElementById('close-menu').addEventListener('click', () => {
       document.getElementById('mobile-menu').classList.remove('open');
     });
-
     document.querySelectorAll('.mobile-link').forEach(link => {
       link.addEventListener('click', () => {
         document.getElementById('mobile-menu').classList.remove('open');
       });
     });
 
-    // Scroll animations
+    // --- Scroll Animations ---
     const observerOptions = { threshold: 0.1 };
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -828,13 +1070,11 @@
         }
       });
     }, observerOptions);
-
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-    // Form submission
+    // --- Contact Form Submission ---
     document.getElementById('order-form').addEventListener('submit', (e) => {
       e.preventDefault();
-
       const name = document.getElementById('name').value.trim();
       const phone = document.getElementById('phone').value.trim();
       const projectType = document.getElementById('project-type').value;
@@ -846,8 +1086,7 @@
         return;
       }
 
-      let msg = `*طلب جديد من موقع THE FUTURE*%0A%0A📝 *البيانات الشخصية*%0Aالاسم: ${encodeURIComponent(name)}%0Aالهاتف: ${encodeURIComponent(phone)}%0A%0A🎯 *تفاصيل المشروع*%0Aنوع الخدمة: ${encodeURIComponent(projectType)}%0A`;
-
+      let msg = `*استفسار جديد من موقع THE FUTURE*%0A%0A📝 *البيانات الشخصية*%0Aالاسم: ${encodeURIComponent(name)}%0Aالهاتف: ${encodeURIComponent(phone)}%0A%0A🎯 *التفاصيل*%0Aالنوع: ${encodeURIComponent(projectType)}%0A`;
       if (budget) msg += `الميزانية: ${encodeURIComponent(budget)}%0A`;
       if (details) msg += `التفاصيل: ${encodeURIComponent(details)}%0A`;
 
@@ -855,7 +1094,97 @@
       document.getElementById('order-form').reset();
     });
 
-    // Element SDK initialization
+    // --- Store & Cart System ---
+    let cart = [];
+
+    function addToCart(name, price) {
+      cart.push({ name, price });
+      updateCartUI();
+      
+      // تأثير بصري للزر عند الإضافة
+      const btn = document.querySelector('.cart-btn-floating');
+      btn.style.transform = 'scale(1.2)';
+      setTimeout(() => btn.style.transform = 'scale(1)', 200);
+    }
+
+    function removeFromCart(index) {
+      cart.splice(index, 1);
+      updateCartUI();
+    }
+
+    function toggleCart() {
+      document.getElementById('cart-modal').classList.toggle('active');
+    }
+
+    function updateCartUI() {
+      document.getElementById('cart-count').innerText = cart.length;
+      const container = document.getElementById('cart-items-container');
+      const totalEl = document.getElementById('cart-total-price');
+      
+      if (cart.length === 0) {
+        container.innerHTML = '<p style="text-align: center; color: var(--text-gray);">السلة فارغة حالياً</p>';
+        totalEl.innerText = '0';
+        return;
+      }
+
+      let html = '';
+      let total = 0;
+      cart.forEach((item, index) => {
+        total += item.price;
+        html += `
+          <div class="cart-item">
+            <div class="cart-item-info">
+              <h4>${item.name}</h4>
+              <span class="cart-item-price">${item.price}$</span>
+            </div>
+            <button class="remove-btn" onclick="removeFromCart(${index})">إزالة</button>
+          </div>
+        `;
+      });
+      container.innerHTML = html;
+      totalEl.innerText = total;
+    }
+
+    function submitOrder() {
+      if (cart.length === 0) {
+        alert('سلتك فارغة! الرجاء إضافة منتجات أولاً.');
+        return;
+      }
+      
+      const name = document.getElementById('checkout-name').value.trim();
+      const phone = document.getElementById('checkout-phone').value.trim();
+      const address = document.getElementById('checkout-address').value.trim();
+      
+      if (!name || !phone) {
+        alert('الرجاء كتابة الاسم ورقم الهاتف لإتمام الطلب.');
+        return;
+      }
+
+      let total = cart.reduce((sum, item) => sum + item.price, 0);
+      
+      let msg = `*طلب شراء جديد من المتجر* 🛒%0A%0A`;
+      msg += `👤 *العميل:* ${encodeURIComponent(name)}%0A`;
+      msg += `📱 *الهاتف:* ${encodeURIComponent(phone)}%0A`;
+      if (address) {
+          msg += `📍 *العنوان:* ${encodeURIComponent(address)}%0A`;
+      }
+      msg += `%0A🛍️ *المنتجات المطلوبة:*%0A`;
+      
+      cart.forEach(item => {
+        msg += `▪️ ${encodeURIComponent(item.name)} - (${item.price}$)%0A`;
+      });
+      
+      msg += `%0A💰 *الإجمالي النهائي:* ${total}$`;
+
+      window.open(`https://wa.me/962788749174?text=${msg}`, '_blank');
+      
+      cart = [];
+      updateCartUI();
+      toggleCart();
+      document.getElementById('checkout-form').reset();
+    }
+
+    // --- Element SDK initialization ---
     const config = {
       hero_title: 'نبني مستقبلك الرقمي',
       hero_description: 'نحن شركة خدمات رقمية متخصصة في الإعلانات، تصميم الشعارات، تطوير المواقع، وبناء الهوية البصرية بأسلوب احترافي يعكس قوة علامتك.',
@@ -866,15 +1195,8 @@
     if (window.elementSdk) {
       window.elementSdk.init({
         defaultConfig: config,
-        onConfigChange: (c) => {
-          Object.assign(config, c);
-        },
-        mapToCapabilities: () => ({
-          recolorables: [],
-          borderables: [],
-          fontEditable: undefined,
-          fontSizeable: undefined
-        }),
+        onConfigChange: (c) => { Object.assign(config, c); },
+        mapToCapabilities: () => ({ recolorables: [], borderables: [], fontEditable: undefined, fontSizeable: undefined }),
         mapToEditPanelValues: () => new Map([
           ['hero_title', config.hero_title],
           ['hero_description', config.hero_description],
@@ -886,5 +1208,5 @@
 
     lucide.createIcons();
   </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9e0b878e65775ccf',t:'MTc3NDI0ODkxNi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ </body>
 </html>
